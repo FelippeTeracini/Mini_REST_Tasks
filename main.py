@@ -50,9 +50,9 @@ def update_task(task_id: int, task: Task):
     title = task.title
     description = task.description
     done = task.done
-    tasks_dictionary[task_id]["title"] = title
-    tasks_dictionary[task_id]["description"] = description
-    tasks_dictionary[task_id]["done"] = done
+    tasks_dictionary[task_id].title = title
+    tasks_dictionary[task_id].description = description
+    tasks_dictionary[task_id].done = done
     return tasks_dictionary[task_id]
 
 
