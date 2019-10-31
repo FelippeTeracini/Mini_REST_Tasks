@@ -3,16 +3,7 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-tasks_dictionary = {1: {
-    "title": "titulo 1",
-    "description": "teste 1",
-    "done": False
-},
-    2: {
-    "title": "titulo 2",
-    "description": "teste 2",
-    "done": True
-}}
+tasks_dictionary = {}
 
 
 class Task(BaseModel):
@@ -34,8 +25,12 @@ def read_tasks():
 @app.post("/task")
 def create_task(task: Task):
     key = tasks_dictionary.keys()
-    last_id = sorted(key)[-1]
-    task_id = last_id + 1
+    key_list = sorted(key)
+    if(len(key_list) != 0):
+        last_id = key_list[-1]
+        task_id = last_id + 1
+    else:
+        task_id = 1
     tasks_dictionary[task_id] = task
     return tasks_dictionary
 
