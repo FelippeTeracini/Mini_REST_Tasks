@@ -61,7 +61,3 @@ def delete_task(task_id: int):
 @app.get("/healthcheck")
 def read_health():
     return
-
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=5000)
