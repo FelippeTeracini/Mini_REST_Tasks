@@ -67,8 +67,8 @@ def read_task(task_id: int):
 
 @app.put("/task/{task_id}")
 def update_task(task_id: int, task: Task):
-    return requests.post(Server.address + '/task/' + task_id,
-                         data=task)
+    return requests.put(Server.address + '/task/' + task_id,
+                        data=json.dumps(task.dict()))
 
 
 @app.delete("/task/{task_id}")
