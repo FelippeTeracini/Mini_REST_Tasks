@@ -40,7 +40,6 @@ PORT = int(PORT)
 class Task(BaseModel):
     title: str
     description: str
-    done: bool
 
 
 @app.get("/")
