@@ -17,7 +17,6 @@ app = FastAPI()
 class Task(BaseModel):
     title: str
     description: str
-    done: bool
 
 
 @app.get("/")
@@ -30,14 +29,14 @@ def read_tasks():
     tasks_list = {}
     for i in tasks.find():
         tasks_list[i['_id']] = {'title': i['title'],
-                                'description': i['description'], 'done': i['done']}
+                                'description': i['description']}
     return tasks_list
 
 
 @app.post("/task")
 def create_task(task: Task):
     new_task = {'title': task.title,
-                'description': task.description, 'done': task.done}
+                'description': task.description}
     tasks.insert_one(new_task)
     return new_task
 
@@ -46,14 +45,14 @@ def create_task(task: Task):
 def read_task(task_id: int):
     found_task = tasks.find({'_id': ObjectId(task_id)})
     return_task = {'id': found_task['_id'], 'title': found_task['title'],
-                   'description': found_task['description'], 'done': found_task['done']}
+                   'description': found_task['description']}
     return return_task
 
 
 @app.put("/task/{task_id}")
 def update_task(task_id: int, task: Task):
     tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {
-                     'title': task.title, 'description': task.description, 'done': task.done}})
+                     'title': task.title, 'description': task.description}})
 
 
 @app.delete("/task/{task_id}")
