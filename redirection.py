@@ -61,12 +61,12 @@ def create_task(task: Task):
 
 
 @app.get("/task/{task_id}")
-def read_task(task_id: int):
+def read_task(task_id: str):
     return requests.get(Server.address + '/task/' + task_id).json()
 
 
 @app.put("/task/{task_id}")
-def update_task(task_id: int, task: Task):
+def update_task(task_id: str, task: Task):
     task_dict = {
         "title": task.title,
         "description": task.description
@@ -76,7 +76,7 @@ def update_task(task_id: int, task: Task):
 
 
 @app.delete("/task/{task_id}")
-def delete_task(task_id: int):
+def delete_task(task_id: str):
     requests.delete(Server.address + '/task/' + task_id).json()
 
 
