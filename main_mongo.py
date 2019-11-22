@@ -5,7 +5,7 @@ import uvicorn
 import os
 from bson.objectid import ObjectId
 
-# db_ip = '172.31.22.2'
+# db_ip = '172.31.40.158'
 db_ip = os.getenv("DB_IP")
 db_ip = "mongodb://" + db_ip + ":27017/"
 client = pymongo.MongoClient(db_ip)
@@ -38,8 +38,7 @@ def read_tasks():
 def create_task(task: Task):
     new_task = {"title": task.title,
                 "description": task.description}
-    x = tasks.insert_one(new_task)
-    return x.inserted_id
+    tasks.insert_one(new_task)
 
 
 @app.get("/task/{task_id}")
