@@ -45,7 +45,7 @@ def create_task(task: Task):
 @app.get("/task/{task_id}")
 def read_task(task_id: int):
     found_task = tasks.find({"_id": ObjectId(task_id)})
-    return_task = {"id": found_task['_id'], "title": found_task["title"],
+    return_task = {"id": found_task["_id"], "title": found_task["title"],
                    "description": found_task["description"]}
     return return_task
 
