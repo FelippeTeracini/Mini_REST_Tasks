@@ -7,10 +7,10 @@ from bson.objectid import ObjectId
 
 # db_ip = '172.31.22.2'
 db_ip = os.getenv("DB_IP")
-db_ip = 'mongodb://' + db_ip + ':27017/'
+db_ip = "mongodb://" + db_ip + ": 27017/"
 client = pymongo.MongoClient(db_ip)
-db = client['cloudDatabase']
-tasks = db['tasks']
+db = client["cloudDatabase"]
+tasks = db["tasks"]
 
 app = FastAPI()
 
