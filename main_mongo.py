@@ -5,9 +5,10 @@ import uvicorn
 import os
 from bson.objectid import ObjectId
 
-# db_ip = '172.31.40.158'
+db_ip = '172.31.23.100'
 db_ip = os.getenv("DB_IP")
-db_ip = "mongodb://" + db_ip + ":27017/"
+db_ip = "mongodb://" + db_ip + ":27017"
+
 client = pymongo.MongoClient(db_ip)
 db = client["cloudDatabase"]
 tasks = db["tasks"]
@@ -28,9 +29,10 @@ def read_root():
 @app.get("/task")
 def read_tasks():
     tasks_list = {}
+    tasks_list["Tasks"] = []
     for i in tasks.find():
-        tasks_list[i["_id"]] = {"title": i["title"],
-                                "description": i["description"]}
+        tasks_list["Tasks"].append(
+            {"id": i["_id"], "title": i["title"], "description": i["description"]})
     return tasks_list
 
 
