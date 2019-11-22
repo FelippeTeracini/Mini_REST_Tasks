@@ -49,7 +49,7 @@ async def read_task(task_id: str):
     tasks_list["Tasks"] = []
     for i in tasks.find({"_id": ObjectId(task_id)}):
         tasks_list["Tasks"].append(
-            {"id": i["_id"], "title": i["title"], "description": i["description"]})
+            {"id": str(i["_id"]), "title": i["title"], "description": i["description"]})
     return tasks_list
 
 
