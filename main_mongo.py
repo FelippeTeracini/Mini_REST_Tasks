@@ -38,8 +38,8 @@ def read_tasks():
 def create_task(task: Task):
     new_task = {'title': task.title,
                 'description': task.description}
-    tasks.insert_one(new_task)
-    return new_task
+    x = tasks.insert_one(new_task)
+    return x.inserted_id
 
 
 @app.get("/task/{task_id}")
