@@ -19,7 +19,6 @@ app = FastAPI()
 class Task(BaseModel):
     title: str
     description: str
-    done: bool
 
 
 @app.get("/")
@@ -33,14 +32,14 @@ async def read_tasks():
     tasks_list["Tasks"] = []
     for i in tasks.find():
         tasks_list["Tasks"].append(
-            {"id": str(i["_id"]), "title": i["title"], "description": i["description"], "done": i["done"]})
+            {"id": str(i["_id"]), "title": i["title"], "description": i["description"]})
     return tasks_list
 
 
 @app.post("/task")
 async def create_task(task: Task):
     new_task = {"title": task.title,
-                "description": task.description, "done": task.done}
+                "description": task.description}
     tasks.insert_one(new_task)
 
 
@@ -50,14 +49,14 @@ async def read_task(task_id: str):
     tasks_list["Tasks"] = []
     for i in tasks.find({"_id": ObjectId(task_id)}):
         tasks_list["Tasks"].append(
-            {"id": i["_id"], "title": i["title"], "description": i["description"], "done": i["done"]})
+            {"id": i["_id"], "title": i["title"], "description": i["description"]})
     return tasks_list
 
 
 @app.put("/task/{task_id}")
 async def update_task(task_id: str, task: Task):
     tasks.update_one({"_id": ObjectId(task_id)}, {"$set": {
-                     "title": task.title, "description": task.description, "done": task.done}})
+                     "title": task.title, "description": task.description}})
 
 
 @app.delete("/task/{task_id}")
