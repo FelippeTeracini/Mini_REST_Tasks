@@ -5,6 +5,7 @@ import uvicorn
 import os
 from bson.objectid import ObjectId
 
+# db_ip = '172.31.22.2'
 db_ip = os.getenv("DB_IP")
 db_ip = 'mongodb://' + db_ip + ':27017/'
 client = pymongo.MongoClient(db_ip)
@@ -53,6 +54,7 @@ def read_task(task_id: int):
 def update_task(task_id: int, task: Task):
     tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {
                      'title': task.title, 'description': task.description}})
+    return task
 
 
 @app.delete("/task/{task_id}")

@@ -54,9 +54,12 @@ def read_tasks():
 
 @app.post("/task")
 def create_task(task: Task):
-    print("Task: {}".format(task.dict()))
+    task_dict = {
+        "title": task.title,
+        "description": task.description
+    }
     return requests.post(Server.address + '/task',
-                         data=json.dumps(task.dict()))
+                         data=json.dumps(task_dict).json()
 
 
 @app.get("/task/{task_id}")
@@ -66,13 +69,17 @@ def read_task(task_id: int):
 
 @app.put("/task/{task_id}")
 def update_task(task_id: int, task: Task):
+    task_dict={
+        "title": task.title,
+        "description": task.description
+    }
     return requests.put(Server.address + '/task/' + task_id,
-                        data=json.dumps(task.dict()))
+                        data=json.dumps(task_dict).json()
 
 
 @app.delete("/task/{task_id}")
 def delete_task(task_id: int):
-    return requests.delete(Server.address + '/task/' + task_id).json()
+    requests.delete(Server.address + '/task/' + task_id).json()
 
 
 @app.get("/healthcheck")
